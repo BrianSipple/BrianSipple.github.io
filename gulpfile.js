@@ -41,7 +41,7 @@ gulp.task('html', ['styles'], function () {
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
-    .pipe(gulp.dest('brian'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('images', function () {
@@ -53,7 +53,7 @@ gulp.task('images', function () {
       // as hooks for embedding and styling
       svgoPlugins: [{cleanupIDs: false}]
     })))
-    .pipe(gulp.dest('brian/images'));
+    .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('fonts', function () {
@@ -61,7 +61,7 @@ gulp.task('fonts', function () {
     filter: '**/*.{eot,svg,ttf,woff,woff2}'
   }).concat('app/fonts/**/*'))
     .pipe(gulp.dest('.tmp/fonts'))
-    .pipe(gulp.dest('brian/fonts'));
+    .pipe(gulp.dest('dist/fonts'));
 });
 
 gulp.task('extras', function () {
@@ -70,10 +70,10 @@ gulp.task('extras', function () {
     '!app/*.html'
   ], {
     dot: true
-  }).pipe(gulp.dest('brian'));
+  }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', require('del').bind(null, ['.tmp', 'brian']));
+gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', ['styles', 'fonts'], function () {
   browserSync({
@@ -118,7 +118,7 @@ gulp.task('wiredep', function () {
 });
 
 gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {
-  return gulp.src('brian/**/*').pipe($.size({title: 'build', gzip: true}));
+  return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
 gulp.task('default', ['clean'], function () {
