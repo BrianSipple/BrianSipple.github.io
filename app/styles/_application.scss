@@ -124,11 +124,32 @@ body,
     margin: 0;
     padding: 0;
     font-size: $font-size_root;
+    background-color: $background-color_primary__page;
 }
+
 
 .content-wrapper {
     padding: $padding-wrapper_default;
 }
+
+.container {
+  margin: 0 auto;
+  text-align: center;
+  overflow: hidden;
+  background-color: $background-color_primary__content;
+
+  &.content {
+    margin: 1em auto;
+    width: 80%;
+  }
+}
+
+
+
+
+
+
+
 
 /* ==========================================================================
    Helper classes
