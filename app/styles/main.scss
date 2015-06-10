@@ -13,3 +13,10 @@
   color: $theme-color_accent__main;
   font-size: 2.5em;
 }
+
+.profile-links {
+  text-align: center;
+  li {
+    list-style-type: none;
+  }
+}

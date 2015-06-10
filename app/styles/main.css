@@ -111,31 +111,31 @@ nav, a, button {
 
 [layout="horizontal"], [layout="row"] {
   -webkit-flex-direction: row;
-          flex-direction: row; }
+  flex-direction: row; }
 
 [layout="vertical"], [layout="column"] {
   -webkit-flex-direction: column;
-          flex-direction: column; }
+  flex-direction: column; }
 
 [layout-align="space-around"] {
   -webkit-justify-content: space-around;
-          justify-content: space-around; }
+  justify-content: space-around; }
 
 [layout-align="space-between"] {
   -webkit-justify-content: space-between;
-          justify-content: space-between; }
+  justify-content: space-between; }
 
 [layout-align="center"] {
   -webkit-justify-content: center;
-          justify-content: center; }
+  justify-content: center; }
 
 [layout-align="start"] {
   -webkit-justify-content: flex-start;
-          justify-content: flex-start; }
+  justify-content: flex-start; }
 
 [layout-align="end"] {
   -webkit-justify-content: flex-end;
-          justify-content: flex-end; }
+  justify-content: flex-end; }
 
 html, body, .main-view-container {
   width: 100vw;
@@ -147,15 +147,25 @@ html, body, .main-view-container {
 
 .content-wrapper {
   padding: .3em .8em; }
+.content-wrapper a {
+  text-decoration: none;
+}
 
 .container {
   margin: 0 auto;
   text-align: center;
   overflow: hidden;
   background-color: white; }
-  .container.content {
-    margin: 1em auto;
-    width: 80%; }
+.container.content {
+  margin: 1em auto;
+  width: 80%; }
+
+.profile-links {
+  text-align: center;
+}
+.profile-links li {
+  list-style-type: none;
+}
 
 /* ==========================================================================
    Helper classes
