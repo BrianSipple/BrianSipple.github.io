@@ -1,9 +1,10 @@
 'use strict';
 
 // Avoid `console` errors in browsers that lack a console.
-(function() {
+(function () {
     var method;
-    var noop = function () {};
+    var noop = function () {
+    };
     var methods = [
         'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
         'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
@@ -60,19 +61,19 @@ var BS = {};
 
                 var fn = this,
                     curried = [].slice.call(arguments, 1),
-                    bound = function bound () {
+                    bound = function bound() {
                         return fn.apply(
                             (!this ||
                                 (typeof window !== 'undefined' &&
-                                    this === window) ||
+                                this === window) ||
                                 (typeof global !== 'undefined' &&
-                                    this === global)
+                                this === global)
                             ) ? obj : this,
-                            curried.concat.apply( curried, arguments )
+                            curried.concat.apply(curried, arguments)
                         );
                     };
 
-                bound.prototype = Object.create( fn.prototype );
+                bound.prototype = Object.create(fn.prototype);
                 return bound;
             };
         }
@@ -83,52 +84,62 @@ var BS = {};
          */
         var compose = function compose(target) {
 
-            // ECMAScript 5+ supported! -- we can clone property
-            // descriptions as well
-            var descriptorCloningEnabled = !!(Object.getOwnPropertyDescriptor);
+                // ECMAScript 5+ supported! -- we can clone property
+                // descriptions as well
+                var descriptorCloningEnabled = !!(Object.getOwnPropertyDescriptor);
 
-            var objects = [].slice.call(arguments, 1);
+                var objects = [].slice.call(arguments, 1);
 
-            // Iterate through each object passed in after "target", cloning
-            // its properties to "target"
-            if (objects.length > 0) {
-                objects.forEach(function (obj) {
+                // Iterate through each object passed in after "target", cloning
+                // its properties to "target"
+                if (objects.length > 0) {
+                    objects.forEach(function (obj) {
 
-                    if (descriptorCloningEnabled) {
+                        if (descriptorCloningEnabled) {
 
-                        // NOTE: Keep in mind that Object.keys() returns only
-                        // enumerable properties. If we want to also copy
-                        // over nonenumerable properties, we can use
-                        // Object.getOwnPropertyNames() instead.
-                        Object.keys(obj).forEach(function (prop) {
+                            // NOTE: Keep in mind that Object.keys() returns only
+                            // enumerable properties. If we want to also copy
+                            // over nonenumerable properties, we can use
+                            // Object.getOwnPropertyNames() instead.
+                            Object.keys(obj).forEach(function (prop) {
 
-                            var descriptor =
-                                Object.getOwnPropertyDescriptor(obj, prop);
+                                var descriptor =
+                                    Object.getOwnPropertyDescriptor(obj, prop);
 
-                            Object.defineProperty(target, prop, descriptor);
-                        });
+                                Object.defineProperty(target, prop, descriptor);
+                            });
 
-                    } else {  // fallback to cloning properties only
+                        } else {  // fallback to cloning properties only
 
-                        for (var prop in obj) {
+                            for (var prop in obj) {
 
-                            if (obj.hasOwnProperty(prop)) {
-                                target[prop] = obj[prop];
+                                if (obj.hasOwnProperty(prop)) {
+                                    target[prop] = obj[prop];
+                                }
                             }
                         }
-                    }
-                });
-            }
+                    });
+                }
 
-            return target;
-        };
+                return target;
+            },
+
+            newTabLinks = function newTabLinks() {
+                if (document) {
+                    [].forEach.call(document.querySelectorAll('a'), function (link) {
+                        link.setAttribute('target', '_blank');
+                    });
+                }
+            };
+
 
         /**
          * Create the actual "api" object -- which we'll then use to extend the
          * exports object that was passed into our loader.
          */
         var api = {
-            compose: compose
+            compose: compose,
+            newTabLinks: newTabLinks
         };
 
         compose(exports, api);

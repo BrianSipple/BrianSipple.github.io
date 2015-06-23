@@ -10,8 +10,8 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <!-- Place favicon.ico in the root directory -->
 
-  <link rel="stylesheet" href="styles/normalize.css">
-  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="lib/styles/normalize.css">
+  <link rel="stylesheet" href="main.css">
   <script src="/vendor/modernizr/modernizr.js"></script>
 
 </head>
@@ -20,6 +20,8 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
   your browser</a> to improve your experience.</p>
 <![endif]-->
+
+<div id="loaderContainer">Loader Test</div>
 
 <div class="main-view-container">
 
@@ -33,12 +35,11 @@
   </section>
   -->
 
-  <section class="page-section_main-content">
+  <section class="section__page--main-content">
 
-    <div class="container content">
+    <div class="container__content">
 
       <div class="content-wrapper about">
-
         <h3 class="content-header accentuated">Hey, </h3>
 
         <p style="margin-top: -1em;">I'm Brian.</p>
@@ -49,54 +50,85 @@
         </p>
 
         <p>
-          I made this site because, well, doing something like that is just awesome -- but also so I can better share
-          some of the things I create and learn. As such, until things are built in proper, please enjoy this cool
+          I made this site because, well, doing something like that is just awesome -- but also so I can
+          better share
+          some of the things I create and learn. As such, until things are built in proper, please enjoy this
+          cool
           textured
-          <a href="http://www.sipple.io/webgl-demoscene/views/teapot/teapot.html">teapot made with environmental mapping
+          <a href="http://www.sipple.io/webgl-demoscene/views/teapot/teapot.html">teapot made with
+            environmental mapping
             in WebGL and THREE.JS</a> (or, alternatively, this
-          <a href="http://www.sipple.io/SVG-Sandbox/views/loaders/jump-loader/jump-loader.html">glowing jump loader</a>
+          <a href="http://www.sipple.io/SVG-Sandbox/views/loaders/jump-loader/jump-loader.html">glowing jump
+            loader</a>
           as
           a more apropos reflection of the current state).
         </p>
 
-        <p>Also, feel free to hit me up any time on Twitter
-          <a href="https://www.twitter.com/Brian_Sipple">@Brian_Sipple</a>, or at some of my other locations:
-        </p>
-
-        <ul class="profile-links">
-          <li>
-            <a href="https://github.com/BrianSipple">GitHub</a>
-          </li>
-          <li>
-            <a href="http://codepen.io/BrianSipple/">CodePen</a>
-          </li>
-          <li>
-            <a href="https://plus.google.com/+BrianSipple">Google Plus</a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/briansipple">LinkedIn</a>
-          </li>
-        </ul>
-        <br/>
-
         <p>Cheers!</p>
 
+
+        <div class="gooey-share-container">
+          Get in touch:
+          <div class="button-set-container">
+            <button class="button__share-toggle">
+              <i class="ic icon-share"></i>
+            </button>
+          </div>
+        </div>
+
       </div>
-
-
     </div>
 
+
+    <div class="container__content">
+      <div class="content-wrapper_projects">
+        <h3>Other Projects Hosted:</h3>
+
+        <ul class="link-map__projects">
+          <li><a href="http://www.sipple.io/webgl-demoscene" target="_blank">WebGL + THREE.JS Demoscene</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="page-section_footer">
+    <footer>
+      <div>
+        <p layout="horizontal" layout-align="space-around">
+          <span>Copyright &copy; 2015</span>
+          <span>Issues? Submit them to
+            <a href="https://github.com/BrianSipple/brian/issues" target="_blank">GitHub</a>
+          </span>
+        </p>
+      </div>
+    </footer>
   </section>
 
 </div>
 
 
-<!-- Plugins and utils -->
-<script src="scripts/lib/base-plugins.js"></script>
+<script src="lib/scripts/base-plugins.js"></script>
+
+<script src="/vendor/gsap/BezierPlugin.min.js"></script>
+<script src="/vendor/gsap/TweenMax.min.js"></script>
+
+<script src="components/gooey-share/gooey-share.js"></script>
+
+<script src="main.js"></script>
 
 
-<!-- App files -->
-<script src="scripts/main.js"></script>
+<!-- TODO: Concatenation
+<script src="app.js"></script>
+-->
+
+<!-- TODO: System JS loading...
+<script src="/jspm_packages/system.js"></script>
+<script src="/config.js"></script>
+<script>
+    System.import('./startup');
+</script>
+-->
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>

@@ -11,16 +11,8 @@ $theme-color_accent__main: hsla(34, 100%, 50%, 1);
 $theme-color_accent__alternate: hsla(186, 100%, 50%, 1);
 
 
-
-
-
-
 $background-color_primary__page: hsla(0, 0%, 96%, 1);
 $background-color_primary__content: hsla(0, 100%, 100%, 1);
-
-
-$padding-wrapper_default: .3em .8em;
-
 
 
 
@@ -47,6 +39,20 @@ $font-color-black_hint-text__light-background: hsla(0, 0%, 0%, .26);
 $font-color-black_divider__light-background: hsla(0, 0%, 0%, .12);
 
 $font-color-default: $font-color-black_primary-text__light-background;
+
+
+$padding-wrapper_default: .3em .8em;
+
+
+/* Base element styles */
+$button-height_default: 3em;
+$button-width_default: 6.2em;
+$button-width_fab: $button-height_default;
+$button-height_fab: $button-height_default;
+$button-color_primary: hsla(196, 83%, 31%, 1);
+
+
+
 
 
 

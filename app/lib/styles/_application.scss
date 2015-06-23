@@ -115,14 +115,19 @@ nav, a, button {
 @import 'base/base-mixins';
 @import 'layouts/page-sections';
 @import 'layouts/flex-layout';
+@import 'font-styles';
 
 html,
 body {
   width: 100%;
   min-height: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   font-size: $font-size_root;
   background-color: $background-color_primary__page;
 }
@@ -131,30 +136,37 @@ body {
   position: relative;
   width: 100vw;
   height: 100%;
-  margin: 0;
-  padding: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
+a {
+  text-decoration: none;
+}
 
 .content-wrapper {
     padding: $padding-wrapper_default;
 }
 
-.container {
+[class^="container__"] {
   margin: 0 auto;
   text-align: center;
   overflow: hidden;
-  background-color: $background-color_primary__content;
+}
 
-  &.content {
-    margin: 1em auto;
-    width: 80%;
-  }
+.container__content {
+  margin: 1em auto;
+  background-color: $background-color_primary__content;
+  width: 80%;
+  box-shadow: 0 0 14px hsla(0, 0%, 0%, 0.19);
 }
 
 
-
-
+@media screen and (max-width: 660px) {
+  .container__content {
+    width: 100%;
+  }
+}
 
 
 

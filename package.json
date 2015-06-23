@@ -22,8 +22,28 @@
     "gulp-uglify": "^1.0.1",
     "gulp-useref": "^1.0.2",
     "jshint-stylish": "^1.0.0",
+    "jspm": "^0.15.7",
     "main-bower-files": "^2.5.0",
     "opn": "^1.0.0",
     "wiredep": "^2.0.0"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "app"
+    },
+    "dependencies": {
+      "css": "github:systemjs/plugin-css@^0.1.12",
+      "json": "github:systemjs/plugin-json@^0.1.0",
+      "modernizr": "github:Modernizr/Modernizr@^2.8.3",
+      "text": "github:systemjs/plugin-text@^0.0.2"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.1.13",
+      "babel-runtime": "npm:babel-runtime@^5.1.13",
+      "core-js": "npm:core-js@^0.9.4"
+    }
+  },
+  "dependencies": {
+    "gulp-concat": "^2.5.2"
   }
 }

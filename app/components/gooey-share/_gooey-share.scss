@@ -1,0 +1,44 @@
+
+$button-width: 3.0em;
+$button-height: 3.0em;
+
+.gooey-share-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.button-set-container {
+    position: relative;
+    height: 100%;
+}
+
+[class^="button__"] {
+    @extend %button_fab;
+    width: $button-width;
+    height: $button-height;
+    background-image: none;
+    background-color: $theme-color-accent__main;
+
+    /* Make them all start in the same position */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -1 * ($button-width/2);
+    margin-left: -1 * ($button-width/2);
+    cursor: pointer;
+    box-shadow: 0 0.5em 0.25em hsla(0, 0%, 0%, 0.22);
+
+    &[class$="__share-link"] {
+        box-shadow: none;
+        a {
+            @extend %button-link_fab;
+        }
+    }
+}
+
+
+
+
+

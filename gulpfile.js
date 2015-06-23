@@ -11,14 +11,17 @@ var config = {
     srcDir: 'app',
     distDir: 'dist',
     tmpDir: '.tmp',
-    srcFonts: 'app/fonts',
-    srcScripts: 'app/scripts',
-    srcStyles: 'app/styles',
-    srcImages: 'app/images',
+    fonts: 'assets/fonts',
+    srcScripts: 'app/lib/scripts',
+    srcStyles: 'app/lib/styles',
+    srcScss: 'app/main.scss',
+    srcComponents: 'app/components',
+    images: 'assets/images',
     vendorSrc: 'vendor',
     vendorDist: 'dist/vendor',
     distScripts: 'dist/scripts',
-    distStyles: 'dist/styles'
+    distStyles: 'dist/styles',
+    distFonts: 'dist/fonts'
   },
 
   sassOpts: {
@@ -31,33 +34,40 @@ var config = {
 
 
 gulp.task('styles', function () {
-  return gulp.src('app/styles/main.scss')
+  return gulp.src([
+    config.paths.srcScss,
+    config.paths.srcComponents + '/**/*.scss'
+  ])
     .pipe($.sourcemaps.init())
     .pipe($.sass(config.sassOpts))
     .pipe($.postcss([
       require('autoprefixer-core')({browsers: ['last 1 version']})
     ]))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest(config.paths.tmpDir + '/styles'))
+    .pipe(gulp.dest(config.paths.tmpDir))
     .pipe(reload({stream: true}))
 
     // move over any remaining CSS files (e.g normailize.css)
-    .pipe(gulp.src(config.paths.srcStyles + '/**/*.css'))
-    .pipe(gulp.dest(config.paths.tmpDir + '/styles'))
+    .pipe(gulp.src([
+        config.paths.srcDir + '/**/*.css',
+        config.paths.srcComponents + '/**/*.css'
+      ])
+    )
+    .pipe(gulp.dest(config.paths.tmpDir))
 
     .pipe(reload({stream: true}));
 });
 
 
 gulp.task('styles:dist', function () {
-  return gulp.src('app/styles/main.scss')
+  return gulp.src(config.paths.srcScss)
     .pipe($.sourcemaps.init())
     .pipe($.sass(config.sassOpts))
     .pipe($.postcss([
       require('autoprefixer-core')({browsers: ['last 1 version']})
     ]))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest(config.paths.distStyles))
+    .pipe(gulp.dest(config.paths.distStyles))  // TODO: Fix to dir
     .pipe(reload({stream: true}))
 
     // move over any remaining CSS files (e.g normailize.css)
@@ -81,16 +91,31 @@ gulp.task('scripts', ['jshint'], function () {
   return gulp.src(
     [
       config.paths.srcScripts + '/**/*.js',
-      config.paths.srcDir + '/**/*.js'
+      config.paths.srcComponents + '/**/*.js',
+      config.paths.srcDir + '*.js'
     ]
   )
-    //.pipe($.concat('app.js'))  // TODO: concat into one file
     .pipe($.uglify())
-    .pipe(gulp.dest(config.paths.distScripts));
+    .pipe(gulp.dest(config.paths.tmpDir));
 });
 
 
-gulp.task('html', ['styles'], function () {
+// TODO: Combine into one task, and act accoriding to a "production?" boolean
+gulp.task('scripts:dir', ['jshint'], function () {
+  return gulp.src(
+      [
+        config.paths.srcScripts + '/**/*.js',
+        config.paths.srcComponents + '/**/*.js',
+        config.paths.srcDir + '*.js'
+      ]
+  )
+      //.pipe($.concat('app.js'))  // TODO: concat into one file for dist
+      .pipe($.uglify())
+      .pipe(gulp.dest(config.paths.srcDir));
+});
+
+
+gulp.task('html', ['styles', 'scripts'], function () {
 
   var assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
 
@@ -105,7 +130,7 @@ gulp.task('html', ['styles'], function () {
 });
 
 
-gulp.task('html:dist', ['styles:dist', 'scripts'], function () {
+gulp.task('html:dist', ['styles:dist', 'scripts:dist'], function () {
 
   var assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
 
@@ -135,7 +160,7 @@ gulp.task('images', function () {
 gulp.task('fonts', function () {
   return gulp.src(require('main-bower-files')({
     filter: '**/*.{eot,svg,ttf,woff,woff2}'
-  }).concat(config.paths.srcFonts + '/**/*'))
+  }).concat(config.paths.fonts + '/**/*'))
     .pipe(gulp.dest(config.paths.tmpDir + '/fonts'))
     .pipe(gulp.dest(config.paths.distDir + '/fonts'));
 });
@@ -179,12 +204,19 @@ gulp.task('serve', ['styles', 'fonts'], function () {
   gulp.watch([
     config.paths.srcDir + '/*.html',
     config.paths.srcScripts + '/**/*.js',
-    config.paths.srcImages + '/**/*',
+    config.paths.images + '/**/*',
     config.paths.tmpDir + '/fonts/**/*'
   ]).on('change', reload);
 
-  gulp.watch(config.paths.srcStyles + '/**/*.scss', ['styles']);
-  gulp.watch(config.paths.srcFonts + '/**/*', ['fonts']);
+  gulp.watch(
+    [
+      config.paths.srcStyles + '/**/*.scss',
+      config.paths.srcDir + '/**/*.scss'
+    ],
+    ['styles']
+  );
+
+  gulp.watch(config.paths.fonts + '/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
 
