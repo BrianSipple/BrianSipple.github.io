@@ -25,11 +25,12 @@
   background-color: $button-color_primary;
   box-shadow: 0 0.5em .25em hsla(0, 0%, 0%, 0.5);
   font-size: 1.25em;
+  color: $color__theme__accent--alternate;
 }
 
 
 /**
- * Syling for a link that's wrapped inside of a button,
+ * Syling for an anchor tag element that's wrapped inside of a button,
  * but we want to completely fill the area of the button
  */
 %button-link {

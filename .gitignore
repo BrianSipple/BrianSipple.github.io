@@ -38,6 +38,7 @@ archive
 .htaccess
 
 
-# Experimental stuff
-**/experimental
+# Shhhhh
+experimental/
+private/
 

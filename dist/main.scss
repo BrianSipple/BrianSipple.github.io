@@ -11,17 +11,18 @@
   }
 }
 
-.about {
-  text-align: left;
-}
 
-.content-header {
+.page-content__header {
   text-align: center;
+  color: $color__theme__accent--main;
+}
+.page-content__header--accentuated {
+  font-size: 2.5em;
 }
 
 .accentuated {
-  color: $theme-color_accent__main;
-  font-size: 2.5em;
+  color: $color__theme__accent--main;
+
 }
 
 [class^="link-map"] {
@@ -31,6 +32,7 @@
 }
 
 .gooey-share-container {
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

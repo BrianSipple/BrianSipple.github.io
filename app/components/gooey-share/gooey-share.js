@@ -1,7 +1,7 @@
 (function () {
 
     var buttonSetContainer = document.querySelector('.button-set-container'),
-        shareToggleButton = document.querySelector('.button__share-toggle'),
+        shareToggleButton = document.querySelector('.button-share__toggle'),
         shareToggleButtonIcon = shareToggleButton.querySelector('.ic'),
         toggleButtonWidth = shareToggleButton.clientWidth,
         linkButtonPadding = toggleButtonWidth * 0.8,
@@ -15,16 +15,15 @@
 
 
         shareLinkData = [
-            {href: 'https://www.twitter.com/@Brian_Sipple', iconClass: 'icon-share-twitter'},
-            {href: 'https://www.linkedin.com/in/briansipple', iconClass: 'icon-share-linkedin'},
-            {href: 'https://plus.google.com/+BrianSipple', iconClass: 'icon-share-gplus'},
-            {href: 'https://github.com/BrianSipple', iconClass: 'icon-share-github'}
+            {href: 'https://www.twitter.com/@Brian_Sipple', iconClass: 'icon-social-twitter'},
+            {href: 'https://www.linkedin.com/in/briansipple', iconClass: 'icon-social-linkedin'},
+            {href: 'https://plus.google.com/+BrianSipple', iconClass: 'icon-social-gplus'},
+            {href: 'https://github.com/BrianSipple', iconClass: 'icon-social-github'}
         ],
 
         gooeyFilterPath = 'url("/svg/filters/gooey-effects.svg#goo")',
 
-        ANIMATION_DURATION_MULTIPLIER = 1,
-        masterTL = new TimelineMax();
+        ANIMATION_DURATION_MULTIPLIER = 1.1;
 
 
 
@@ -33,14 +32,26 @@
         var leftButtons = shareLinkButtons.slice(0, shareLinkButtons.length / 2),
             rightButtons = shareLinkButtons.slice(shareLinkButtons.length / 2),
             xDist = isToggledOpen ? 0 : totalSpreadDistance,
-            tl = new TimelineMax();
 
+            tl;
         if (isToggledOpen) {
+            // if here, this tl is closing the buttons, and so
+            // we'll wait until completion to remove `expanded` class
+            tl = new TimelineMax({});
             tl.add([resetToggleButton(), closeButtons(leftButtons, false), closeButtons(rightButtons, true)]);
+            shareToggleButton.classList.remove('expanded');
         } else {
+            // if here, this tl is opening the buttons, and so
+            // we'll turn on the `expanded` class as soon as it starts
+            tl = new TimelineMax({
+                onStart: function () {
+                    shareToggleButton.classList.add('expanded');
+                }
+            });
             tl.add(squishToggleButton());
             tl.add([openButtons(leftButtons, -xDist, false), openButtons(rightButtons, xDist, true)]);
         }
+
         isToggledOpen = !isToggledOpen;
     }
 
@@ -69,12 +80,15 @@
                 (idx + 1) : (n - idx);
 
             currentDurationMultiplier = (isTweeningRight) ?
-                ANIMATION_DURATION_MULTIPLIER + (idx * 0.1) :
-                ANIMATION_DURATION_MULTIPLIER + ( (n - idx) * 0.1);
+            ANIMATION_DURATION_MULTIPLIER + (idx * 0.3) :
+            ANIMATION_DURATION_MULTIPLIER + ( (n - (idx + 1)) * 0.3);
+
+            //console.log('Is tweening right: ' + isTweeningRight);
+            //console.log('Current Duration Multiplier for button scaling: ' + currentDurationMultiplier);
 
             currentIcon = (isTweeningRight) ?
                 linkButtonIcons[ (n + idx) ] :
-                linkButtonIcons[ (n - idx) ];
+                linkButtonIcons[ (n - idx - 1) ];
 
             tweens.push(
                 TweenMax.set(button, {css: {zIndex: currentZIndex}}),
@@ -83,8 +97,8 @@
                     currentDurationMultiplier * 2.2,
                     {
                         x: currentXDist,
-                        scaleY: 0.6,
-                        scaleX: 1.1,
+                        scale: 0.6,
+                        scaleX: 1.3,
                         ease: Elastic.easeOut.config(1.01, 0.5)
                     }
                 ),
@@ -100,9 +114,9 @@
                 TweenMax.fromTo(
                     currentIcon,
                     ANIMATION_DURATION_MULTIPLIER * 0.2,
-                    {scale: Math.min(totalXDist, 1.0)},  // 0 or 1 based upon expansion / collapse, respectively
+                    {scale: 0},
                     {
-                        scale: Math.max(totalXDist, 1.0),  // 1 or 0 based upon expansion / collapse, respectively
+                        scale: 1.0,
                         delay: (0.2 * currentDurationMultiplier) - 0.1,
                         ease: Power4.easeInOut
                     }
@@ -122,21 +136,21 @@
     function closeButtons(buttons, isTweeningRight) {
         var tweens = [];
 
-        var numButtons = buttons.length,
+        var n = buttons.length,
             currentZIndex,
             currentIcon,
             currentDurationMultiplier;
         buttons.forEach(function (button, idx) {
 
             currentZIndex = (isTweeningRight) ?
-                (idx + 1) : (numButtons - idx);
+                (idx + 1) : (n - idx);
 
             currentDurationMultiplier = isTweeningRight ?
-                ANIMATION_DURATION_MULTIPLIER + (idx * 0.1) :
-                ANIMATION_DURATION_MULTIPLIER + ( (numButtons - idx) * 0.1);
+            ANIMATION_DURATION_MULTIPLIER + (idx * 0.1) :
+            ANIMATION_DURATION_MULTIPLIER + ( (n - idx) * 0.1);
 
             currentIcon = (isTweeningRight) ?
-                linkButtonIcons[idx] : linkButtonIcons[(numButtons - idx)];
+                linkButtonIcons[idx] : linkButtonIcons[(n - idx - 1)];
 
             tweens.push(
                 TweenMax.set(button, { css: { zIndex: currentZIndex }}),
@@ -159,38 +173,38 @@
                 )
             );
         });
-
         return tweens;
     }
 
 
     function squishToggleButton() {
         return TweenMax.to(
-                shareToggleButton,
-                ANIMATION_DURATION_MULTIPLIER * 0.1,
-                {
-                    scaleX: 1.2,
-                    scaleY: 0.6,
-                    ease: Power4.easeOut,
-                    onComplete: function () {
-                        TweenMax.to(
-                            shareToggleButton,
-                            ANIMATION_DURATION_MULTIPLIER * 0.8,
-                            {
-                                scale: openButtonScale,
-                                ease: Elastic.easeOut.config(1.1, 0.6)
-                            }
-                        );
-                        TweenMax.to(
-                            shareToggleButtonIcon,
-                            ANIMATION_DURATION_MULTIPLIER * 0.8,
-                            {
-                                scale: 1.4,
-                                ease: Elastic.easeOut.config(1.1, 0.6)
-                            }
-                        );
-                    }
+            [shareToggleButton, shareLinkButtons],
+            ANIMATION_DURATION_MULTIPLIER * 0.1,
+            {
+                scaleX: 1.2,
+                scaleY: 0.6,
+                ease: Power4.easeOut,
+                onComplete: function () {
+                    TweenMax.to(
+                        shareToggleButton,
+                        ANIMATION_DURATION_MULTIPLIER,
+                        {
+                            scale: openButtonScale,
+                            ease: Elastic.easeOut.config(1.1, 0.6),
+                            delay: ANIMATION_DURATION_MULTIPLIER * 0.075
+                        }
+                    );
+                    TweenMax.to(
+                        shareToggleButtonIcon,
+                        ANIMATION_DURATION_MULTIPLIER * 0.8,
+                        {
+                            scale: 1.4,
+                            ease: Elastic.easeOut.config(1.1, 0.6)
+                        }
+                    );
                 }
+            }
         );
     }
 
@@ -221,10 +235,11 @@
             optionButtonIcon = document.createElement('i');
 
             // Make 'em classy
-            optionButtonElem.classList.add('button__share-link');
+            optionButtonElem.classList.add('button-share__link');
             optionButtonLink.setAttribute('href', shareLinkData[i].href);
             optionButtonLink.setAttribute('target', '_new');
-            optionButtonIcon.classList.add('ic_share-option');
+            optionButtonIcon.classList.add('ic');
+            optionButtonIcon.classList.add('ic_share-link');
             optionButtonIcon.classList.add(shareLinkData[i].iconClass);
 
             // Assemble the button and add it to the fragment

@@ -129,7 +129,7 @@ body {
   padding: 0;
   overflow: hidden;
   font-size: $font-size_root;
-  background-color: $background-color_primary__page;
+  background-color: $background-color__page--primary;
 }
 
 .main-view-container {
@@ -144,7 +144,7 @@ a {
   text-decoration: none;
 }
 
-.content-wrapper {
+[class^="content-wrapper"] {
     padding: $padding-wrapper_default;
 }
 
@@ -154,19 +154,22 @@ a {
   overflow: hidden;
 }
 
-.container__content {
-  margin: 1em auto;
-  background-color: $background-color_primary__content;
+.page-content__container {
+  margin: 0 auto 1em;
+  background-color: $background-color__content--primary;
   width: 80%;
+  max-width: $max-width__page-content;
   box-shadow: 0 0 14px hsla(0, 0%, 0%, 0.19);
+  text-align: left;
 }
 
 
 @media screen and (max-width: 660px) {
-  .container__content {
+  .page-content__container {
     width: 100%;
   }
 }
+
 
 
 

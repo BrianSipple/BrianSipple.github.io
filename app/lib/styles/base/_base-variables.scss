@@ -1,47 +1,57 @@
+/* ---------------------- Theme colors ---------------------- */
+$color__theme__primary--main: hsla(200, 18%, 46%, 1);
+$color__theme__primary--alternate: hsla(60, 29%, 96%, 1);
+
+$color__theme__accent--main: hsla(157, 81%, 46%, 1);
+$color__theme__accent--alternate: hsla(271, 68%, 32%, 1);
+
+
+$background-color__page--primary: hsla(0, 0%, 96%, 1);
+$background-color__content--primary: hsla(0, 100%, 100%, 1);
+
+
+
+
+/* ----------------------- Fonts, font colors and font sizes ---------------------- */
 $font-family-stack: Roboto, Arial, Helvetica, sans-serif;
 $font-size_root: 16px;
-
-
-
-/* ---------------------- Theme colors ---------------------- */
-$theme-color_primary__main: hsla(60, 29%, 96%, 1);
-$theme-color_primary__alternate: hsla(200, 18%, 46%, 1);
-
-$theme-color_accent__main: hsla(34, 100%, 50%, 1);
-$theme-color_accent__alternate: hsla(186, 100%, 50%, 1);
-
-
-$background-color_primary__page: hsla(0, 0%, 96%, 1);
-$background-color_primary__content: hsla(0, 100%, 100%, 1);
-
-
-
-
-/* ----------------------- Font colors and sizes ---------------------- */
 $font-size_md: 16px;
 
+
 /* White text on dark backgrounds */
-$font-color-white_primary-text__dark-background: hsla(0, 100%, 100%, 1);
-$font-color-white_icon__dark-background: hsla(0, 100%, 100%, 1);
-$font-color-white_button__dark-background: hsla(0, 100%, 100%, 1);
-$font-color-white_secondary-text__dark-background: hsla(0, 100%, 100%, .70);
-$font-color-white_disabled__dark-background: hsla(0, 100%, 100%, .30);
-$font-color-white_hint-text__dark-background: hsla(0, 100%, 100%, .30);
-$font-color-white_divider__dark-background: hsla(0, 100%, 100%, .12);
+$font-color__primary-text__white--dark-background: hsla(0, 100%, 100%, 1);
+$font-color__icon__white--dark-background: hsla(0, 100%, 100%, 1);
+$font-color__button__white--dark-background: hsla(0, 100%, 100%, 1);
+$font-color__secondary-text__white--dark-background: hsla(0, 100%, 100%, .70);
+$font-color__disabled__white--dark-background: hsla(0, 100%, 100%, .30);
+$font-color__hint-text__white--dark-background: hsla(0, 100%, 100%, .30);
+$font-color__divider__white--dark-background: hsla(0, 100%, 100%, .12);
 
 /* Dark text on light backgrounds */
-$font-color-black_primary-text__light-background: hsla(0, 0%, 0%, .87);
-$font-color-black_icon__light-background: hsla(0, 0%, 0%, .54);
-$font-color-black_button__light-background: hsla(0, 0%, 0%, .54);
-$font-color-black_secondary-text__light-background: hsla(0, 0%, 0%, .54);
-$font-color-black_disabled__light-background: hsla(0, 0%, 0%, .26);
-$font-color-black_hint-text__light-background: hsla(0, 0%, 0%, .26);
-$font-color-black_divider__light-background: hsla(0, 0%, 0%, .12);
+$font-color__primary-text__black--light-background: hsla(0, 0%, 0%, .87);
+$font-color__header-text__black--light-background: hsla(276, 3%, 30%, 1);
+$font-color__icon__black--light-background: hsla(0, 0%, 0%, .54);
+$font-color__button__black--light-background: hsla(0, 0%, 0%, .54);
+$font-color__secondary-text__black--light-background: hsla(0, 0%, 0%, .54);
+$font-color__disabled__black--light-background: hsla(0, 0%, 0%, .26);
+$font-color__hint-text__black--light-background: hsla(0, 0%, 0%, .26);
+$font-color__divider__black--light-background: hsla(0, 0%, 0%, .12);
 
-$font-color-default: $font-color-black_primary-text__light-background;
+$font-color__default: $font-color__primary-text__black--light-background;
+
+
+
+/* ----------------------- Base Dimensions ---------------------- */
 
 
 $padding-wrapper_default: .3em .8em;
+
+$navbar-height: 64px;
+$footer-height: 64px;
+
+$max-width__page-content: 900px;
+
+
 
 
 /* Base element styles */
@@ -71,9 +81,6 @@ $animation-duration-multiplier: 1s;
 $easings_ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1.000);
 
 
-
-$navbar-height: 64px;
-$footer-height: 64px;
 
 
 

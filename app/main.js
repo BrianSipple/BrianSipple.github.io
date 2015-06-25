@@ -5,13 +5,10 @@ console.log('%c  %c', 'background-image: url("http://www.emoji-cheat-sheet.com/g
 
 BS.newTabLinks();
 
-window.addEventListener('load', function () {
-
-  // Animate the loader out on load
-  setTimeout(function () {
-    document.querySelector('#loaderContainer').classList.add('remove');
-  }, 3000);
-
-
-
-});
+//window.addEventListener('load', function () {
+//
+//  // Animate the loader out on load
+//  setTimeout(function () {
+//    document.querySelector('#loaderContainer').classList.add('remove');
+//  }, 3000);
+//});

@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <!-- Place favicon.ico in the root directory -->
 
-  <link rel="stylesheet" href="lib/styles/normalize.css">
+  <link rel="stylesheet" href="/styles/normalize.css">
   <link rel="stylesheet" href="main.css">
   <script src="/vendor/modernizr/modernizr.js"></script>
 
@@ -21,8 +21,9 @@
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
+<!--
 <div id="loaderContainer">Loader Test</div>
-
+-->
 <div class="main-view-container">
 
   <!--
@@ -35,12 +36,12 @@
   </section>
   -->
 
-  <section class="section__page--main-content">
+  <section class="section__page__main-content">
 
-    <div class="container__content">
+    <div class="page-content__container">
 
-      <div class="content-wrapper about">
-        <h3 class="content-header accentuated">Hey, </h3>
+      <div class="content-wrapper__about">
+        <h1 class="page-content__header page-content__header--accentuated">Hey,</h1>
 
         <p style="margin-top: -1em;">I'm Brian.</p>
 
@@ -68,9 +69,9 @@
 
 
         <div class="gooey-share-container">
-          Get in touch:
+          Get in touch
           <div class="button-set-container">
-            <button class="button__share-toggle">
+            <button class="button-share__toggle">
               <i class="ic icon-share"></i>
             </button>
           </div>
@@ -80,19 +81,22 @@
     </div>
 
 
-    <div class="container__content">
+    <div class="page-content__container">
       <div class="content-wrapper_projects">
-        <h3>Other Projects Hosted:</h3>
+        <h2 class="page-content__header">Other Hosted Projects & Experiments</h2>
 
         <ul class="link-map__projects">
           <li><a href="http://www.sipple.io/webgl-demoscene" target="_blank">WebGL + THREE.JS Demoscene</a></li>
+          <li><a href="http://www.sipple.io/svg-sandbox/" target="_blank">SVG Sandbox</a></li>
+          <li><a href="https://shot-slots.firebaseapp.com" target="_blank">Toy Espresso Slot Machine</a></li>
+          <li><a href="http://codepen.io/BrianSipple" target="_blank">Codepen</a></li>
         </ul>
       </div>
     </div>
 
   </section>
 
-  <section class="page-section_footer">
+  <section class="page-section__footer">
     <footer>
       <div>
         <p layout="horizontal" layout-align="space-around">
@@ -108,12 +112,12 @@
 </div>
 
 
-<script src="lib/scripts/base-plugins.js"></script>
+<script src="/scripts/base-plugins.js"></script>
 
 <script src="/vendor/gsap/BezierPlugin.min.js"></script>
 <script src="/vendor/gsap/TweenMax.min.js"></script>
 
-<script src="components/gooey-share/gooey-share.js"></script>
+<script src="/scripts/gooey-share/gooey-share.js"></script>
 
 <script src="main.js"></script>
 

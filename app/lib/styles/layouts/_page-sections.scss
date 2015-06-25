@@ -1,13 +1,15 @@
-[class^="section__"] {
+[class^="section__page"] {
     width: 100%;
     display: block;
     position: relative;
 }
 
-.section__page--hero {
+.section__page__hero {
 
 }
 
-.section__page--main-content {
-    height: 100vh;
+.section__page__main-content {
+    height: auto;
+    min-height: 100vh;
+    padding-top: 1em;
 }
