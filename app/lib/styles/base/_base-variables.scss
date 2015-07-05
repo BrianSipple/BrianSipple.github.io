@@ -44,7 +44,11 @@ $font-color__default: $font-color__primary-text__black--light-background;
 /* ----------------------- Base Dimensions ---------------------- */
 
 
-$padding-wrapper_default: .3em .8em;
+$padding__element: 0.3em 0.8em;
+$padding__section-wrapper: .40em 1.2em;
+
+
+
 
 $navbar-height: 64px;
 $footer-height: 64px;

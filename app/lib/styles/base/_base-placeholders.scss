@@ -1,7 +1,7 @@
 %button {
   height: $button-height_default;
   width: $button-width_default;
-  padding: $padding-wrapper_default;
+  padding: $padding__element;
   border: 1px solid $button-color_primary;
   background-color: $button-color_primary;
   background-image: linear-gradient(
