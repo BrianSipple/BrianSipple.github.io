@@ -30,7 +30,7 @@
 //    It’s common in client-side code to have a build step that wraps all of your modules together in a single outer
 //    function. With that in mind, we can pass our application object into that wrapper function as a parameter
 //    called exports
-var BS = {};
+//var BS = {};
 
 (function (exports) {
 
@@ -124,7 +124,7 @@ var BS = {};
                 return target;
             },
 
-            newTabLinks = function newTabLinks() {
+            setLinksToOpenInNewTab = function setLinksToOpenInNewTab() {
                 if (document) {
                     [].forEach.call(document.querySelectorAll('a'), function (link) {
                         link.setAttribute('target', '_blank');
@@ -139,7 +139,7 @@ var BS = {};
          */
         var api = {
             compose: compose,
-            newTabLinks: newTabLinks
+            setLinksToOpenInNewTab: setLinksToOpenInNewTab
         };
 
         compose(exports, api);
@@ -147,4 +147,4 @@ var BS = {};
 
     }((typeof exports === 'undefined') ? window : exports));
 
-}(BS));
+}(/*BS*/));

@@ -1,4 +1,6 @@
-(function () {
+(function (window) {
+
+    'use strict';
 
     var buttonSetContainer = document.querySelector('.button-set-container'),
         shareToggleButton = document.querySelector('.button-share__toggle'),
@@ -21,10 +23,7 @@
             {href: 'https://github.com/BrianSipple', iconClass: 'icon-social-github'}
         ],
 
-        gooeyFilterPath = 'url("/svg/filters/gooey-effects.svg#goo")',
-
         ANIMATION_DURATION_MULTIPLIER = 1.1;
-
 
 
     function toggleOptions() {
@@ -87,8 +86,8 @@
             //console.log('Current Duration Multiplier for button scaling: ' + currentDurationMultiplier);
 
             currentIcon = (isTweeningRight) ?
-                linkButtonIcons[ (n + idx) ] :
-                linkButtonIcons[ (n - idx - 1) ];
+                linkButtonIcons[(n + idx)] :
+                linkButtonIcons[(n - idx - 1)];
 
             tweens.push(
                 TweenMax.set(button, {css: {zIndex: currentZIndex}}),
@@ -153,7 +152,7 @@
                 linkButtonIcons[idx] : linkButtonIcons[(n - idx - 1)];
 
             tweens.push(
-                TweenMax.set(button, { css: { zIndex: currentZIndex }}),
+                TweenMax.set(button, {css: {zIndex: currentZIndex}}),
                 TweenMax.to(
                     button,
                     (currentDurationMultiplier * 0.1) + 0.4,
@@ -208,7 +207,7 @@
         );
     }
 
-    function resetToggleButton () {
+    function resetToggleButton() {
         return TweenMax.to(
             [shareToggleButton, shareToggleButtonIcon],
             ANIMATION_DURATION_MULTIPLIER * 1.4,
@@ -277,4 +276,4 @@
 
     shareToggleButton.addEventListener('click', toggleOptions, false);
 
-})();
+})(window);

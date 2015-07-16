@@ -1,4 +1,24 @@
 {
+  "name": "main-source-files",
+  "version": "1.0.0",
+  "description": "Source files for portfolio website",
+  "main": "app/main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrianSipple/BrianSipple.github.io.git"
+  },
+  "author": "Brian Sipple <@Brian_Sipple>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BrianSipple/BrianSipple.github.io/issues"
+  },
+  "homepage": "https://github.com/BrianSipple/BrianSipple.github.io#readme",
   "private": true,
   "engines": {
     "node": ">=0.10.0"
@@ -9,13 +29,16 @@
     "del": "^1.1.1",
     "gulp": "^3.6.0",
     "gulp-cache": "^0.2.2",
+    "gulp-concat": "^2.5.2",
     "gulp-csso": "^0.2.6",
     "gulp-if": "^1.2.1",
     "gulp-imagemin": "^2.0.0",
+    "gulp-jscs": "^1.6.0",
     "gulp-jshint": "^1.5.3",
-    "gulp-load-plugins": "^0.8.0",
+    "gulp-load-plugins": "^0.10.0",
     "gulp-minify-html": "^0.1.6",
     "gulp-postcss": "^3.0.0",
+    "gulp-print": "^1.1.0",
     "gulp-sass": "^1.3.3",
     "gulp-size": "^1.1.0",
     "gulp-sourcemaps": "^1.3.0",
@@ -24,27 +47,9 @@
     "jshint-stylish": "^1.0.0",
     "jspm": "^0.15.7",
     "main-bower-files": "^2.5.0",
+    "minimist": "^1.1.1",
     "opn": "^1.0.0",
-    "wiredep": "^2.0.0"
-  },
-  "jspm": {
-    "directories": {
-      "baseURL": "app"
-    },
-    "dependencies": {
-      "css": "github:systemjs/plugin-css@^0.1.12",
-      "json": "github:systemjs/plugin-json@^0.1.0",
-      "modernizr": "github:Modernizr/Modernizr@^2.8.3",
-      "text": "github:systemjs/plugin-text@^0.0.2"
-    },
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.1.13",
-      "babel-runtime": "npm:babel-runtime@^5.1.13",
-      "core-js": "npm:core-js@^0.9.4"
-    }
-  },
-  "dependencies": {
-    "gulp-concat": "^2.5.2",
-    "minimist": "^1.1.1"
+    "wiredep": "^2.0.0",
+    "yargs": "^3.15.0"
   }
 }
