@@ -1,38 +1,62 @@
 /*global -$ */
 'use strict';
 var gulp = require('gulp'),
-    $ = require('gulp-load-plugins')({ lazy: true }),
-    //args = require('minimist')(process.argv.slice(2)),
+    $ = require('gulp-load-plugins')({lazy: true}),
+//args = require('minimist')(process.argv.slice(2)),
     browserSync = require('browser-sync'),
+    del = require('del'),
     reload = browserSync.reload,
     yargs = require('yargs').argv,
 
 
     config = require('./gulp-config')(),
+    port = process.env.PORT || config.defaultPort,
     paths = config.paths,
 
 
+    log = function log(msg) {
 
-    //log = function log(msg) {
-    //
-    //    if (typeof msg === 'object') {
-    //        for (var item in msg) {
-    //            if (msg.hasOwnProperty(item)) {
-    //                $.util.log($.util.colors.blue(msg[item]));
-    //            }
-    //        }
-    //    }
-    //},
+        if (typeof msg === 'object') {
+            for (var item in msg) {
+                if (msg.hasOwnProperty(item)) {
+                    $.util.log($.util.colors.blue(msg[item]));
+                }
+            }
+        } else {
+            $.util.log($.util.colors.blue(msg));
+        }
+    },
+
+    clean = function clean(path, done) {
+        log('Cleaning: ' + $.util.colors.blue(path));
+        del(path, done);
+    },
+
+    startBrowserSync = function startBrowserSync () {
+
+        if (browserSync.active) {
+            return;
+        }
+
+        log('Starting browser-sync on port ' + port);
+
+
+    },
+
 
     buildingProd = !!(yargs.production);  // default to building dist unless run with ``` gulp --dev
 
 
-gulp.task('styles', function () {
-    return gulp.src(paths.srcSCSS, { base: paths.srcRoot })
+gulp.task('styles', ['clean-styles'], function () {
+
+    log('Compiliing SCSS to CSS');
+
+    return gulp.src(paths.srcSCSS, {base: paths.srcRoot})
+        .pipe($.plumber())
         .pipe($.sourcemaps.init())
         .pipe($.sass(config.sassOpts))
         .pipe($.postcss([
-            require('autoprefixer-core')({browsers: ['last 1 version']})
+            require('autoprefixer-core')({browsers: ['last 2 version', '> 5%']})
         ]))
         .pipe($.sourcemaps.write())
         .pipe($.if(buildingProd, gulp.dest(paths.dist)))
@@ -48,7 +72,15 @@ gulp.task('styles', function () {
 });
 
 
+gulp.task('clean-styles', function (done) {
+    var files = paths.tmp + '/**/*.css';
+    clean(files, done);
+});
+
+
 gulp.task('vet', function () {
+
+    log('Analyzing JavaScript files');
 
     return gulp.src(paths.vettedJS)
         .pipe($.if(yargs.verbose, $.print()))
@@ -60,7 +92,7 @@ gulp.task('vet', function () {
 
 
 gulp.task('scripts', ['vet'], function () {
-    return gulp.src(paths.allSrcJS, {base: paths.srcRoot})
+    return gulp.src(paths.srcJS, {base: paths.srcRoot})
         .pipe($.print())
         .pipe($.uglify())
         .pipe($.if(!buildingProd, gulp.dest(paths.tmp)))
@@ -72,7 +104,7 @@ gulp.task('html', ['styles', 'scripts'], function () {
 
     var assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
 
-    return gulp.src(paths.srcHTML, { base: paths.srcRoot })
+    return gulp.src(paths.srcHTML, {base: paths.srcRoot})
         .pipe(assets)
         .pipe($.if('*.js', $.uglify()))
         .pipe($.if('*.css', $.csso()))
@@ -119,9 +151,12 @@ gulp.task('extras', function () {
         .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('clean', require('del').bind(null, [paths.dist, paths.tmp]));
+gulp.task('clean', del.bind(null, [paths.dist, paths.tmp]));
 
 gulp.task('serve', ['styles', 'fonts'], function () {
+
+    startBrowserSync();
+
     browserSync({
         notify: false,
         port: 9000,
@@ -133,36 +168,53 @@ gulp.task('serve', ['styles', 'fonts'], function () {
         }
     });
 
+    //gulp.watch('bower.json', ['wiredep', 'fonts']);
+});
+
+
+gulp.task('styles-watch', function () {
+    gulp.watch([paths.srcSCSS], ['styles']);
+});
+
+
+gulp.task('watch', ['serve'], function () {
     // watch for changes
     gulp.watch([
         paths.srcHTML,
-        paths.allSrcJS,
+        paths.srcJS,
         paths.srcImages,
         paths.srcFonts
     ]).on('change', reload);
 
     gulp.watch(paths.srcSCSS, ['styles']);
-
     gulp.watch(paths.srcFonts, ['fonts']);
-    //gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
 
-// // inject bower components
-// gulp.task('wiredep', function () {
-//     var wiredep = require('wiredep').stream;
-//
-//     gulp.src(paths.srcSCSS + '/*.scss')
-//         .pipe(wiredep({
-//             ignorePath: /^(\.\.\/)+/
-//         }))
-//         .pipe(gulp.dest(paths.srcSCSS));
-//
-//     gulp.src(paths.srcDir + '/*.html')
-//         .pipe(wiredep({
-//             ignorePath: /^(\.\.\/)*\.\./
-//         }))
-//         .pipe(gulp.dest(paths.srcDir));
-// });
+
+gulp.task('wiredep', function () {
+    log('Wiring up bower css, and bower js into HTML');
+    var
+        wiredep = require('wiredep').stream,
+        wireDepOpts = config.getWireDepOpts();
+
+
+    return gulp
+        .src(paths.srcIndexHTML, {base: paths.srcRoot})
+        .pipe(wiredep(wireDepOpts))
+        .pipe($.inject(gulp.src(paths.injectedCustomJS)))
+        .pipe(gulp.dest(paths.srcRoot));  // return html back to srcRoot
+
+});
+
+// inject bower components
+gulp.task('inject', ['wiredep', 'styles'], function () {
+    log('Injecting custom css and js into HTML... after calling wiredep');
+
+    return gulp
+        .src(paths.srcIndexHTML, {base: paths.srcRoot})
+        .pipe($.inject(gulp.src(paths.injectedCustomCSS)))
+        .pipe(gulp.dest(paths.srcRoot));  // return html back to srcRoot
+});
 
 
 gulp.task('build', ['vet', 'html', 'images', 'fonts', 'vendor', 'extras'], function () {

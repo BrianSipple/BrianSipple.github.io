@@ -13,14 +13,14 @@
 
 .page-content__header {
   text-align: center;
-  color: $color__theme__accent--main;
+  color: $theme-color__primary;
 }
 .page-content__header--accentuated {
   font-size: 2.5em;
 }
 
 .accentuated {
-  color: $color__theme__accent--main;
+  color: $theme-color__primary;
 
 }
 
@@ -48,7 +48,7 @@
   height: 100%;
 
   &.remove {
-    animation: SlideOutUp $animation-duration-multiplier * 88 $easings_ease-out-cubic;
+    animation: SlideOutUp $anim-duration__multiplier * 88 $easing__ease-out-cubic;
     animation-fill-mode: forwards;
   }
 }

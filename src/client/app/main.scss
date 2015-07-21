@@ -13,22 +13,32 @@
 
 .page-content__header {
   text-align: center;
-  color: $color__theme__accent--main;
+  color: $theme-color__primary;
 }
 .page-content__header--accentuated {
   font-size: 2.5em;
 }
 
 .accentuated {
-  color: $color__theme__accent--main;
+  color: $theme-color__primary;
 
 }
 
 [class^="link-map"] {
-  text-align: center;
-  list-style: none;
-  padding-left: 0;
+     text-align: center;
+     list-style: none;
+     padding-left: 0;
+ }
+
+.container {
+    margin-top: 3em;
+    margin-bottom: 3em;
 }
+
+.content {
+    text-align: left;
+}
+
 
 .gooey-share-container {
   text-align: center;
@@ -48,7 +58,7 @@
   height: 100%;
 
   &.remove {
-    animation: SlideOutUp $animation-duration-multiplier * 88 $easings_ease-out-cubic;
+    animation: SlideOutUp $anim-duration__multiplier * 88 $easing__ease-out-cubic;
     animation-fill-mode: forwards;
   }
 }

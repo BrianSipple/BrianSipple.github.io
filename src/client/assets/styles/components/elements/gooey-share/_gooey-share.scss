@@ -17,11 +17,11 @@ $button-box-shadow: 0 0.3em 0.25em hsla(0, 0%, 0%, 0.19);
 }
 
 [class^="button-share"] {
-    @extend %button_fab;
+    @extend %button__fab;
     width: $button-width;
     height: $button-height;
     background-image: none;
-    background-color: $color__theme__accent--main;
+    background-color: $theme-color__primary;
 
     /* Make them all start in the same position */
     position: absolute;

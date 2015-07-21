@@ -1,0 +1,16 @@
+.footer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: -$navbar__height;   // The center content applies padding to account for the navbar height, so let's make sure the footer doesn't flow over top of its bottom
+    height: $footer__height;
+    text-align: center;
+
+    .footer__items {
+        display: flex;
+        width: 100%;
+    }
+    .footer__item {
+        flex: 1;
+    }
+}

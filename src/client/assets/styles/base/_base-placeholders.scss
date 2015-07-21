@@ -1,45 +1,62 @@
 %button {
-  height: $button-height_default;
-  width: $button-width_default;
-  padding: $padding__element;
-  border: 1px solid $button-color_primary;
-  background-color: $button-color_primary;
-  background-image: linear-gradient(
-      hsla(0, 0%, 100%, .2),
-      transparent
-  );
-  border-radius: .2em;
-  box-shadow: 0 .05em .25em hsla(0, 0%, 0%, 0.5);
-  color: hsla(0, 100%, 100%, 1);
-  text-shadow: 0 -.05em .05em hsla(0, 0%, 0%, 0.5);
-  font-size: 1.25em;
-  line-height: 1.5em;
+    height: $button__height;
+    width: $button__width;
+    padding: 0.3em 0.8em;
+    border: 1px solid $button__color;
+    background-color: $button__color;
+    background-image: linear-gradient(
+            hsla(0, 0%, 100%, .2),
+            transparent
+    );
+    border-radius: .2em;
+    box-shadow: 0 .05em .25em hsla(0, 0%, 0%, 0.5);
+    color: $font-color__button--white-on-dark-background;
+    text-shadow: 0 -.05em .05em hsla(0, 0%, 0%, 0.5);
+    font-size: 1.25em;
+    line-height: 1.5em;
+    text-align: center;
 }
-
-%button_fab {
-  width: $button-width_fab;
-  height: $button-height_fab;
-  border-radius: 50%;
-  border: none;
-  outline: none;
-  background-color: $button-color_primary;
-  box-shadow: 0 0.5em .25em hsla(0, 0%, 0%, 0.5);
-  font-size: 1.25em;
-  color: $color__theme__accent--alternate;
-}
-
 
 /**
- * Syling for an anchor tag element that's wrapped inside of a button,
- * but we want to completely fill the area of the button
+ * A link styled as a button
  */
-%button-link {
-  width: 100%;
-  height: 100%;
-  display: inline-block;
+%link--button {
+    @extend %button;
+    text-decoration: none;
 }
 
-%button-link_fab {
-  @extend %button-link;
-  border-radius: 50%;
+%button__fab {
+    width: $button-fab__width;
+    height: $button-fab__height;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background-color: $button__color;
+    box-shadow: 0 0.5em .25em hsla(0, 0%, 0%, 0.5);
+    font-size: 1.25em;
+}
+
+
+
+%toolbar {
+    color: $font-color__primary-text--white-on-dark-background;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: $navbar__height;
+    background-color: $theme-color__primary--alt-light;
+    max-width: 100%;
+    width: 100%;
+    font-size: 2.0rem;
+    position: relative;
+}
+
+/**
+ * Default helper styles when displaying an image via
+ * the background-image property
+ */
+%background-image-display {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
