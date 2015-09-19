@@ -10,18 +10,14 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <!-- bower:css -->
-    <!-- endbower -->
 
+    <!-- build:css app/app.css -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="/src/client/assets/styles/normalize.css">
+    <link rel="stylesheet" href="/.tmp/app/main.css">
     <!-- endinject -->
+    <!-- endbuild -->
 
-    <!--
-    <link rel="stylesheet" href="assets/styles/normalize.css">
-    <link rel="stylesheet" href="app/main.css">
-    <script src="vendor/modernizr/modernizr.js"></script>
-    -->
+
 
 </head>
 <body>
@@ -55,7 +51,7 @@
                 <p style="margin-top: -1em;">I'm Brian.</p>
 
                 <p>
-                    I'm a front-end developer and designer who lives in San Francisco, and
+                    I'm a front-end developer, animator and designer who lives in San Francisco, and
                     this is my soon-to-be-spiffy-but-currently-in-version-negative-one portfolio site.
                 </p>
 
@@ -68,7 +64,7 @@
                     <a href="http://www.sipple.io/webgl-demoscene/views/teapot/teapot.html">teapot made with
                         environmental mapping
                         in WebGL and THREE.JS</a> (or, alternatively, this
-                    <a href="http://www.sipple.io/svg-sandbox/views/svg-lab/loaders/jump-loader/jump-loader.html">glowing
+                    <a href="http://www.sipple.io/animation-sandbox/views/svg-lab/loaders/jump-loader/jump-loader.html">glowing
                         jump
                         loader</a>
                     as
@@ -98,7 +94,7 @@
                 <ul class="link-map__projects">
                     <li><a href="http://www.sipple.io/webgl-demoscene" target="_blank">WebGL + THREE.JS Demoscene</a>
                     </li>
-                    <li><a href="http://www.sipple.io/svg-sandbox/" target="_blank">Animation Sandbox</a></li>
+                    <li><a href="http://www.sipple.io/animation-sandbox/" target="_blank">Animation Sandbox</a></li>
                     <li><a href="https://github.com/BrianSipple/JavaScript-Algorithms-with-ES6-and-JSPM"
                            target="_blank">JavaScript Algorithms with ES6</a></li>
                     <li><a href="https://shot-slots.firebaseapp.com" target="_blank">Toy Espresso Slot Machine</a></li>
@@ -130,28 +126,30 @@
 </div>
 
 
+<!-- build:js vendor/vendor.js -->
 <!-- bower:js -->
+<script src="/vendor/modernizr/modernizr.js"></script>
+<script src="/vendor/gsap/src/uncompressed/TweenMax.js"></script>
 <!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js app/app.js -->
 
 <!-- inject:js -->
-<script src="/src/client/vendor/modernizr/modernizr.js"></script>
+<script src="/vendor/modernizr/modernizr.js"></script>
 <script src="/src/client/assets/scripts/base-plugins.js"></script>
-<script src="/src/client/vendor/gsap/BezierPlugin.min.js"></script>
-<script src="/src/client/vendor/gsap/TweenMax.min.js"></script>
+<script src="/vendor/gsap/src/minified/plugins/BezierPlugin.min.js"></script>
+<script src="/vendor/gsap/src/minified/TweenMax.min.js"></script>
 <script src="/src/client/app/components/gooey-share/gooey-share.js"></script>
 <script src="/src/client/app/app.js"></script>
 <script src="/src/client/app/startup.js"></script>
 <!-- endinject -->
 
+<!-- endbuild -->
 
 
-<!-- TODO: System JS loading...
-<script src="/jspm_packages/system.js"></script>
-<script src="/config.js"></script>
-<script>
-    System.import('app/app');
-</script>
--->
+
+
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>

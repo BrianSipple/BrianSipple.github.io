@@ -3,119 +3,202 @@ module.exports = function () {
 
     var path = require('path'),
 
-        root = 'src/client',
-        distDir = 'dist/',
-        tmpDir = '.tmp/',
+        clientDirName = 'src/client',
+        serverDirName = 'src/server',
+        clientAppDirName = 'src/client/app',
+        srcDirName = 'src',
+        distDirName = 'dist',
+        tmpDirName = '.tmp',
+        reportDirName = 'report',
+        specRunnerFileName = 'specs.html',
+
+        root = './',
+        srcClientDirPath = path.join(__dirname, clientDirName),
+        srcServerDirPath = path.join(__dirname, serverDirName),
+        wiredep = require('wiredep'),
+        bowerFiles = wiredep(
+            {
+                devDependencies: true,
+                //directory: path.join(__dirname, 'vendor/')
+            }
+        ).js,
 
         defaultPort = 9988,
 
         /**
          * helper method to generate resolveTo`X` paths, rooted at the app root
          */
-        resolveTo = function resolveTo(resolvePath) {
+        resolveToSrcClient = function resolveToSrcClient(resolvePath) {
             return function (glob) {
                 glob = glob || '';
-                return path.join(root, resolvePath, glob);
+                return path.join(clientDirName, resolvePath, glob);
             };
         },
 
-        resolveToApp = resolveTo('app'),  // app/{glob}
-        resolveToComponents = resolveTo('app/components'),
-        resolveToAssets = resolveTo('assets'),
-        resolveToVendor = resolveTo('vendor'),
+        resolveToSrcServer = function resolveToSrcServer(resolvePath) {
+            return function (glob) {
+                glob = glob || '';
+                return path.join(serverDirName, resolvePath, glob);
+            };
 
-        srcIndexHTML = path.join(__dirname, root, 'index.html'),
+        },
 
-        config = {};
+        resolveToSrcApp = resolveToSrcClient('app'),  // app/{glob}
+        resolveToSrcComponents = resolveToSrcClient('app/components'),
+        resolveToSrcAssets = resolveToSrcClient('assets'),
+
+
+        resolveToTmp = function resolveToTmp (resolvePath) {
+            return function (glob) {
+                glob = glob || '';
+                return path.join(tmpDirName, resolvePath, glob);
+            };
+        },
+
+        resolveToTmpApp = resolveToTmp('app'),
+        resolveToTmpAssets = resolveToTmp('assets'),
+
+
+
+        srcIndexHTML = path.join(__dirname, clientDirName, 'index.html'),
+
+        config = {
+            distDirName: distDirName,
+            tmpDirName: tmpDirName,
+            srcDirName: srcDirName,
+        };
 
     config.paths = {
         srcIndexHTML: srcIndexHTML,
-        srcAssets: resolveToAssets(),
-        srcImages: resolveToAssets('images/**/*.{gif,jpg,png,svg}'),
-        srcFonts: resolveToAssets('fonts/**/*'),
+        srcImages: resolveToSrcAssets('images/**/*.{gif,jpg,png,svg}'),
 
-        ////// Location names //////
-        dist: path.join(__dirname, distDir),
-        tmp: path.join(__dirname, tmpDir),
-        srcRoot: path.join(__dirname, root),
+        ////// Path names //////
+        distDirPath: path.join(__dirname, distDirName),
+        srcDirPath: path.join(__dirname, srcDirName),
+        tmpDirPath: path.join(__dirname, tmpDirName),
+        srcClientDirPath: srcClientDirPath,
 
-        vendorSrc: path.join(__dirname, root + '/vendor/**/*'),
+        vendorSrc: path.join(__dirname, 'vendor'),
 
-        tmpApp: path.join(__dirname, tmpDir + 'app/'),
-        tmpAssets: path.join(__dirname, tmpDir + 'assets/'),
+        tmpApp: path.join(__dirname, tmpDirName, 'app'),
+        tmpAssets: path.join(__dirname, tmpDirName, 'assets'),
 
-        vendorDist: path.join(__dirname, distDir + 'vendor/'),
-        distApp: path.join(__dirname, distDir + 'app/'),
-        distAssets: path.join(__dirname, distDir + 'assets/'),
+        vendorDist: path.join(__dirname, distDirName, 'vendor'),
+        distApp: path.join(__dirname, distDirName, 'app'),
+        distAssets: path.join(__dirname, distDirName, 'assets'),
+        distImages: path.join(__dirname, distDirName, 'assets/images'),
+        distFonts: path.join(__dirname, distDirName, 'assets/fonts'),
+
+        rootPath: root,
+
+        srcServerDirPath: srcServerDirPath,
+        nodeServerFilePath: resolveToSrcServer('server.js'),
 
 
         bower: {
-            json: './bower.json',
-            directory: path.join(__dirname, root, 'vendor'),
-            ignorePath: ''
+            json: path.join(__dirname, './bower.json'),
+            directory: path.join(__dirname, './vendor/')
         },
+
+
+        // Packages to source when bumping package versions
+        packages: [
+            root + 'package.json',
+            root + 'bower.json'
+        ],
 
         // all of the JS that we want to vet
         vettedJS: [
-            resolveToApp('**/*.js'),
+            resolveToSrcApp('**/*.js'),
             '!./jspm.config.js',
+            '!./karma.conf.js',
+            '!./gulp-config.js',
             './*.js'  // vet our own top-level JS files such as gulpfile.js
         ],
 
         srcJS: [
-            resolveToAssets('/scripts/**/*.js'),
-            resolveToComponents('**/*.js'),
-            resolveToApp('**/*.js'),
-            '!' + resolveToApp('/**/*.spec.js')
+            resolveToSrcAssets('/scripts/**/*.js'),
+            resolveToSrcComponents('**/*.js'),
+            resolveToSrcApp('**/*.js'),
+            '!' + resolveToSrcApp('/**/*.spec.js')
         ],
 
         srcSCSS: [
-            resolveToApp('main.scss'),
-            resolveToAssets('styles/**/*.scss')
+            resolveToSrcApp('main.scss'),
+            resolveToSrcAssets('styles/**/*.scss')
         ],
 
         srcHTML: [
-            resolveToApp('**/*.html'),
+            resolveToSrcApp('**/*.html'),
             srcIndexHTML
+        ],
+
+        srcFonts: [
+            path.join(resolveToSrcAssets('fonts'), '**/*.{eot,svg,ttf,woff,woff2}')
         ],
 
         // Any CSS files that we might just want to move
         //around without processing (e.g. normalize.css)
         extraCSS: [
-            resolveToApp('*.css'),
-            resolveToAssets('styles/**/*.css'),
-            resolveToComponents('/**/*.css')
+            resolveToSrcApp('*.css'),
+            resolveToSrcAssets('styles/**/*.css'),
+            resolveToSrcComponents('/**/*.css')
         ],
 
         // Extra config and dotfiles in the root (e.g, robots.txt)
         // that we just want to move around
         rootExtras: [
-            resolveToApp('*.*'),
-            '!' + resolveToApp('*.html')
+            resolveToSrcApp('*.*'),
+            '!' + resolveToSrcApp('*.html')
         ],
 
 
         ///// Custom HTML Injects (CAREFUL: Order MIGHT matter here) //////
 
+        /* Inject CSS after it has been compiled to .tmp */
         injectedCustomCSS: [
-            resolveToAssets('styles/normalize.css'),
-            path.join(__dirname, tmpDir, '/app/main.css')
+            //resolveToTmpAssets('styles/normalize.css'),
+            resolveToTmpApp('main.css')
         ],
 
         injectedCustomJS: [
-            resolveToVendor('modernizr/modernizr.js'),
-            resolveToAssets('scripts/base-plugins.js'),
-            resolveToVendor('gsap/BezierPlugin.min.js'),
-            resolveToVendor('gsap/TweenMax.min.js'),
-            resolveToComponents('**/*.js'),
-            resolveToApp('*.js'),
-            '!' + resolveToApp('/**/*.spec.js')
+            path.join(__dirname, 'vendor', 'modernizr/modernizr.js'),
+            resolveToSrcAssets('scripts/base-plugins.js'),
+            path.join(__dirname, 'vendor', 'gsap/src/minified/plugins/BezierPlugin.min.js'),
+            path.join(__dirname, 'vendor', 'gsap/src/minified/TweenMax.min.js'),
+            resolveToSrcComponents('**/*.js'),
+            resolveToSrcApp('*.js'),
+            '!' + resolveToSrcApp('/**/*.spec.js')
+        ],
+
+        specFiles: path.join(srcClientDirPath, '**/*.spec.js'),
+
+        specRunnerFilePath: path.join(
+            srcClientDirPath,
+            specRunnerFileName
+        ),
+
+        specHelpers: path.join(
+            srcClientDirPath,
+            'test-helpers/*.js'
+        ),
+
+        /**
+         * Paths to libraries needed for running tests
+         * (Injected into mocha spec runner template)
+         */
+        testLibraries: [
+            'node_modules/mocha/mocha.js',
+            'node_modules/chai/chai.js',
+            'node_modules/sinon-chai/lib/sinon-chai.js'
         ]
+
+
     };
 
     config.defaultPort = defaultPort;
     config.sassOpts = {
-        outputStyle: 'nested',
+        outputStyle: 'expanded',
         precision: 10,
         includePaths: ['.'],
         onError: console.error.bind(console, 'Sass error: ')
@@ -126,36 +209,138 @@ module.exports = function () {
         interlaced: true,
         // don't remove IDs from SVGs -- we want them
         // as hooks for embedding and styling
-        svgoPlugins: [{cleanupIDs: false}]
+        svgoPlugins: [{cleanupIDs: false}],
+        optimizationLevel: 4
     };
 
-    config.browserSyncOpts = {
-        proxy: 'localhost:' + defaultPort,  // proxy the default port....
-        port: 3000,                         // ... on this port
 
-        files: []
-        // Track different parts and events of the browser
-        ghostMode: {
-            clicks: true,
-            location: false,
-            forms: true,
-            scroll: true
-        },
-        injectChanges: true,   // inject just the file that changed
-        logFileChanges: true,
-        logPrefix: 'portfolio-source-files',
-        notify: true,
-        reloadDelay: 1000  // ms
+    config.injectCSSSourceOpts = {
+        read: false,
+        cwd: path.join(__dirname, srcClientDirPath)
     };
+
+
+    config.browserReloadDelay = 1000; // ms
+
+    /**
+     * Karma config settings
+     */
+    config.karma = getKarmaFiles();
+
+
+    /**
+     * Karama AND general testing settings
+     */
+    config.serverIntegrationSpecs = [
+        path.join(
+            config.paths.srcClientDirPath,
+            'tests/server-integration/**/*.spec.js'
+        )
+    ];
+
+    /**
+     * Use a different port for the forked process that any
+     * integration tests will run on
+     */
+    config.integrationTestServerPort = defaultPort + 1;
 
     config.getWireDepOpts = function getWiredepOpts() {
         var options = {
-            bowerJson: config.paths.bower.json,
-            directory: config.paths.bower.directory
-            // ignorePath: config.paths.bower.ignorePath
+            bowerJson: require(config.paths.bower.json),
+            directory: config.paths.bower.directory,
+            ignorePath: '../..'
         };
         return options;
     };
 
+    config.getBrowserSyncOpts = function getBrowserSyncOpts (isDev, isSpecRunner, isUsingNodeMon) {
+
+        // Default options across all varities of browserSyncing
+        var options = {
+            notify: isUsingNodeMon ? true : false,
+            port: isUsingNodeMon ? 3000 : 3001,
+            ghostMode: {
+                clicks: true,
+                location: false,
+                forms: true,
+                scroll: true
+            },
+            injectChanges: true,   // inject just the file that changed
+            logFileChanges: true,
+            logLevel: 'debug',
+            logPrefix: 'portfolio-source-files',
+            reloadDelay: config.browserReloadDelay
+        };
+
+
+        // Depending on whether or not we're using nodemon, our browsersync
+        // task will either run with a proxy or set up its own server
+        if (isUsingNodeMon) {
+
+            // proxy the default port on the port browsersync is using
+            options.proxy = 'localhost:' + defaultPort;
+
+            options.files = isDev ?
+                [
+                    srcClientDirPath + '/**/*.*',
+                    '!' + config.paths.srcSCSS,
+                    // catch changes to css as its built to .tmp
+                    config.paths.tmpDirPath + '/**/*.css'
+                ] :
+                // in build mode, we'll have watched first,
+                // and we don't want to watch here
+                [];
+        } else {
+            options.server = {
+                baseDir: [config.paths.tmpDirPath, config.paths.srcClientDirPath],
+                routes: {
+                    '/vendor': 'vendor'
+                }
+            };
+        }
+
+        if (isSpecRunner) {
+            options.startPath = specRunnerFileName;
+        }
+
+        return options;
+    };
+
     return config;
+
+    function getKarmaFiles () {
+
+        var options = {
+
+            // TODO: config is still undefined when this function runs, so I think trying to use it in the "files" array needs to be fixed
+            files: [].concat(
+                bowerFiles,
+                //config.specHelpers,
+                //path.join(__dirname, clientDirName, '/**/*.module.js'),
+                resolveToSrcApp('**/*.js'),
+                resolveToSrcAssets('scripts/**/*.js'),
+                //path.join(__dirname, tmpDirName, config.templateCache.file),
+                config.serverIntegrationSpecs
+            ),
+            exclude: [].concat(
+                config.serverIntegrationSpecs
+            ),
+            coverage: {
+                dir: path.join(__dirname, reportDirName, 'coverage'),
+                reporters: [
+                    {type: 'html', subdir: 'report-html'},
+                    {type: 'lcov', subdir: 'report-lcov'},
+                    {type: 'text-summary'}
+                ]
+            },
+            preprocessors: {},
+            configFile: __dirname + '/karma.conf.js'
+        };
+
+        // anywhere in the clientAppDir, ignore the spec files, but get all other JS
+        options.preprocessors[path.join(__dirname, clientAppDirName, '/**/!(*.spec)+(.js)')] = ['coverage'];
+
+        return options;
+    }
+
 };

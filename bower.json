@@ -2,6 +2,7 @@
   "name": "brian",
   "private": true,
   "dependencies": {
-    "modernizr": "~2.8.1"
+    "modernizr": "~2.8.1",
+    "gsap": "~1.18.0"
   }
 }

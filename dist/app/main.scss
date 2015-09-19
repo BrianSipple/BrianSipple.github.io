@@ -25,10 +25,20 @@
 }
 
 [class^="link-map"] {
-  text-align: center;
-  list-style: none;
-  padding-left: 0;
+     text-align: center;
+     list-style: none;
+     padding-left: 0;
+ }
+
+.container {
+    margin-top: 3em;
+    margin-bottom: 3em;
 }
+
+.content {
+    text-align: left;
+}
+
 
 .gooey-share-container {
   text-align: center;
