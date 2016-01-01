@@ -5,14 +5,15 @@
             introHeaderContainer: '.js-intro-content',
             introHeader: '.js-intro-header',
             followUpContentContainer: '.js-after-intro',
-            introHeaderComma: '.js-intro-header__comma'
+            introHeaderComma: '.js-intro-header__comma',
+            introHeaderText: '.js-intro-header__text'
         },
 
         DURATIONS = {
-            dropDownGreeting: 1.3,
-            slideInComma: 1.5,
+            dropDownGreeting: 1.125,
+            slideInComma: 1.25,
             revealBody: 0.5,
-            scaleShift: 0.5
+            scaleShift: 0.8
         },
 
         EASINGS = {
@@ -21,6 +22,12 @@
             //slideInComma: Back.easeOut.config(1.2),
             revealBody: Power4.easeOut,
             scaleShift: Power4.easeOut
+        },
+
+        COLORS = {
+            backgroundIntro: '#2B2D31',
+            backgroundPostIntro: '#FAFAFA'
+
         },
 
         LABELS = {
@@ -35,7 +42,9 @@
         DOM_REFS = {
             introHeaderContainerElem: document.querySelector(SELECTORS.introHeaderContainer),
             followUpContentContainerElem: document.querySelector(SELECTORS.followUpContentContainer),
-            introHeaderCommaElem: document.querySelector(SELECTORS.introHeaderComma)
+            introHeaderCommaElem: document.querySelector(SELECTORS.introHeaderComma),
+            introHeaderTextElem: document.querySelector(SELECTORS.introHeaderText),
+            bodyElem: document.body || document.querySelector('body')
         };
     }
 
@@ -47,12 +56,24 @@
         tl.set(
             DOM_REFS.introHeaderContainerElem,
             {
-                scale: 2,
+                transformOrigin: '50%, 50%',
+                scale: 2.25,
                 position: 'absolute',
-                top: 0,
+                left: '50%',
+                xPercent: -50,
+                top: '0',
                 immediateRender: false
             }
         );
+
+        // set the intro background color
+        tl.set(DOM_REFS.bodyElem, { backgroundColor: COLORS.backgroundIntro, immediateRender: false });
+
+        // center intro header text
+        // tl.set(
+        //     DOM_REFS.introHeaderTextElem,
+        //     { marginLeft: '-1em', immediateRender: false }
+        // );
 
         // allow the comma to slide in later
         tl.set(
@@ -63,7 +84,13 @@
         // main body content will slide in from bottom
         tl.set(
             DOM_REFS.followUpContentContainerElem,
-            { top: 100, immediateRender: false }
+            {
+                position: 'absolute',
+                left: '50%',
+                xPercent: -50,
+                top: '100%',
+                immediateRender: false
+            }
         );
 
         return tl;
@@ -137,26 +164,41 @@
 
         var tl = new TimelineMax();
 
-        // tl.set(
-        //     DOM_REFS.introHeaderContainerElem,
-        //     { xPercent: 0, yPercent: 0, immediateRender: false }
-        // );
+        tl.set(
+            DOM_REFS.introHeaderContainerElem,
+            { className: '+= u__mt3', immediateRender: false }
+        );
 
         tl.to(
             DOM_REFS.introHeaderContainerElem,
             DURATIONS.scaleShift,
-            { top: 0, yPercent: 0, left: '0%', scale: 1, ease: EASINGS.scaleShift }
-            //{ position: 'relative', textAlign: 'left', scale: 1, ease: EASINGS.scaleShift }
+            {
+                top: '0%',
+                yPercent: 0,
+                scale: 1,
+                ease: EASINGS.scaleShift,
+                onComplete: function () {
+
+                    // Finish by placing back in normal flow
+                    tl.set(
+                        DOM_REFS.introHeaderContainerElem,
+                        {
+                            position: 'relative',
+                            immediateRender: false
+                        }
+                    );
+                }
+            },
+            0
         );
 
-        // Finish by placing back in normal flow
-        tl.set(
-            DOM_REFS.introHeaderContainerElem,
-            {
-                position: 'relative',
-                immediateRender: false
-            }
-        )
+        tl.to(
+            DOM_REFS.bodyElem,
+            DURATIONS.scaleShift,
+            { backgroundColor: COLORS.backgroundPostIntro },
+            0
+        );
+
 
         return tl;
     }
@@ -165,14 +207,24 @@
     function revealRestOfContent () {
         var tl = new TimelineMax();
 
+        tl.set(
+            DOM_REFS.followUpContentContainerElem,
+            { className: '+= u__mt3', immediateRender: false }
+        );
+
         tl.to(
             DOM_REFS.followUpContentContainerElem,
             DURATIONS.revealBody,
             {
                 opacity: 1,
-                top: 0,
+                top: '0%',
                 ease: EASINGS.bodyReveal
             }
+        );
+
+        tl.set(
+            DOM_REFS.followUpContentContainerElem,
+            { position: 'relative', left: '0%', xPercent: 0, immediateRender: false }
         );
 
         return tl;
@@ -185,7 +237,7 @@
         MASTER_TL.addLabel(LABELS.sceneSet);
         MASTER_TL.add(revealIntroContent());
         MASTER_TL.add(scaleBackIntroContent());
-        //MASTER_TL.add(revealRestOfContent(), '+=0.5');
+        MASTER_TL.add(revealRestOfContent(), '+=0.1');
 
         //MASTER_TL.timeScale(.0002);
         MASTER_TL.play();

@@ -4,6 +4,6 @@
   "dependencies": {
     "modernizr": "~2.8.1",
     "gsap": "~1.18.0",
-    "savvy": "git@github.com:BrianSipple/savvy.git"
+    "savvy": "git@github.com:BrianSipple/savvy.git#master"
   }
 }

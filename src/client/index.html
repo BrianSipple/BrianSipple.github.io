@@ -11,7 +11,7 @@
     <!-- Place favicon.ico in the root directory -->
 
 
-    <link rel="stylesheet" href="/vendor/savvy/dist/savvy.min.css">
+    <link rel="stylesheet" href="vendor/savvy/dist/savvy.min.css">
 
     <!-- build:css app/app.css -->
     <!-- inject:css -->
@@ -21,7 +21,7 @@
 
 
 </head>
-<body class="u__full-bleed u__relative">
+<body class="u__relative u__full-bleed">
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -31,124 +31,128 @@
 <div id="loaderContainer">Loader Test</div>
 -->
 
-    <section class="o__container u__relative u__fill-width js-intro-content">
+    <div class="u__relative u__fill-width u__fill-height">
 
-        <header class="o__column-oneWhole u__fill-height u__fill-width">
-            <h1 class="u__align-center
-                       u__m0
-                       u__relative
-                       g__theme-color-primary
-                       js-intro-header">
-               <span>Hey</span>
-               <span class="js-intro-header__comma u__absolute">,</span>
-           </h1>
-        </header>
+        <section class="u__fill-width js-intro-content">
 
-    </section>
+            <header class="o__column-oneWhole u__fill-height u__pl3 u__pr3">
+                <h2 class="u__align-center
+                           u__m0
+                           u__relative
+                           g__theme-color-primary
+                           js-intro-header">
+                   <span class="js-intro-header__text">Hey</span>
+                   <span class="js-intro-header__comma u__absolute">,</span>
+               </h1>
+            </header>
 
+        </section>
 
-    <section class="js-after-intro o__container">
+        <!-- relative container for the rest of the content -->
+        <div class="u__relative u__fill-width u__fill-height">
 
-        <section class="o__row">
+            <section class="js-after-intro u__width-90 o__container">
 
-            <main class="o__column-oneWhole">
-                <p class="u__mt1">I'm Brian.</p>
+                <section class="o__row u__fill-width u__pl3 u__pr3">
 
-                <p>
-                    I'm a front-end developer, animator and designer who lives in San Francisco, and
-                    this is my soon-to-be-spiffy-but-currently-in-version-negative-one portfolio site.
-                </p>
+                    <main class="o__column-oneWhole">
+                        <p class="u__mt1">I'm Brian.</p>
 
-                <p>
-                    I made this site because, well, doing something like that is just awesome -- but also so I can
-                    better share
-                    some of the things I create and learn. As such, until things are built in proper, please enjoy this
-                    cool
-                    textured
-                    <a href="http://www.sipple.io/webgl-demoscene/views/teapot/teapot.html">teapot made with
-                        environmental mapping
-                        in WebGL and THREE.JS</a> (or, alternatively, this
-                    <a href="http://www.sipple.io/animation-sandbox/views/svg-lab/loaders/jump-loader/jump-loader.html">glowing
-                        jump
-                        loader</a>
-                    as
-                    a more apropos reflection of the current state).
-                </p>
+                        <p>
+                            I'm a front-end developer, animator and designer who lives in San Francisco, and
+                            this is my soon-to-be-spiffy-but-currently-in-version-negative-one portfolio site.
+                        </p>
 
-                <p>Cheers!</p>
+                        <p>
+                            I made this site because, well, doing something like that is just awesome -- but also so I can
+                            better share
+                            some of the things I create and learn. As such, until things are built in proper, please enjoy this
+                            cool
+                            textured
+                            <a href="http://www.sipple.io/webgl-demoscene/views/teapot/teapot.html">teapot made with
+                                environmental mapping
+                                in WebGL and THREE.JS</a> (or, alternatively, this
+                            <a href="http://www.sipple.io/animation-sandbox/views/svg-lab/loaders/jump-loader/jump-loader.html">glowing
+                                jump loader</a> -- which is a bit more apropos for our <strike>shoeless</strike> <a href="http://tvtropes.org/pmwiki/pmwiki.php/Main/TheCobblersChildrenHaveNoShoes">one-shoed state</a>).
+                        </p>
 
-                <div class="o__container u__mt3">
+                        <p>Cheers!</p>
 
-                    <!-- NOTE: Don't remove the "button" classes. There's a bit of legacy styling going on that... will be addressed in future versions of the site :) -->
-                    <div class="o__row o__row--center o__row--top">
-                        <div class="button-set-container o__column-oneWhole u__align-center">
+                        <div class="o__container u__mt3">
 
-                            <span class="u__block u__mb3">Get in touch</span>
+                            <!-- NOTE: Don't remove the "button" classes. There's a bit of legacy styling going on that... will be addressed in future versions of the site :) -->
+                            <div class="o__row o__row--center o__row--top">
+                                <div class="button-set-container o__column-oneWhole u__align-center">
+
+                                    <span class="u__block u__mb3">Get in touch...</span>
+                                    <button class="button-share__toggle">
+                                        <i class="ic icon-share"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--
+                        Get in touch
+                        <div class="button-set-container">
                             <button class="button-share__toggle">
                                 <i class="ic icon-share"></i>
                             </button>
                         </div>
-                    </div>
-
-                </div>
-
-                <!--
-                Get in touch
-                <div class="button-set-container">
-                    <button class="button-share__toggle">
-                        <i class="ic icon-share"></i>
-                    </button>
-                </div>
-                -->
+                        -->
 
 
-            </main>
+                    </main>
 
-        </section>
-
-
-        <section class="o__row u__mt5">
-
-            <header class="o__column-oneWhole">
-                <h2 class="u__align-center g__theme-color-primary">Hosted Projects, Demos, Experiments, etc</h2>
-            </header>
-
-            <main class="o__column-oneWhole">
+                </section>
 
 
-                <ul class="o__list--bare u__align-center">
-                    <li><a href="http://www.sipple.io/webgl-demoscene" target="_blank">WebGL + THREE.JS Demoscene</a>
-                    </li>
-                    <li><a href="http://www.sipple.io/animation-sandbox/" target="_blank">Animation Sandbox</a></li>
-                    <li><a href="https://github.com/BrianSipple/JavaScript-Algorithms-with-ES6-and-JSPM"
-                           target="_blank">JavaScript Algorithms with ES6</a></li>
-                    <li><a href="https://shot-slots.firebaseapp.com" target="_blank">Toy Espresso Slot Machine</a></li>
-                    <li><a href="https://github.com/BrianSipple/twitch-streamer" target="_blank">Promise-Based Twitch
-                        API Streamer in Vanilla JS</a></li>
-                    <li><a href="https://github.com/BrianSipple/Node-Markdown-Editor" target="_blank">Realtime Node.js
-                        Markdown Editor</a></li>
-                    <li><a href="http://codepen.io/BrianSipple" target="_blank">Codepen</a></li>
-                    <li><a href="https://github.com/BrianSipple" target="_blank">GitHub</a></li>
-                </ul>
+                <section class="o__row u__mt5">
 
-            </main>
+                    <header class="o__column-oneWhole">
+                        <h2 class="u__align-center g__theme-color-primary">Miscellaneous Projects, Demos, Experiments, etc.</h2>
+                    </header>
 
-        </section>
+                    <main class="o__column-oneWhole">
 
-        <footer class="o__container u__mt3 u__p2">
-            <p class="o__row o__row--around">
-                <span>Copyright &copy; 2015</span>
-                <span>Issues? Submit them to
-                    <a href="https://github.com/BrianSipple/brian/issues" target="_blank">GitHub</a>
-                </span>
-            </p>
-        </footer>
 
-    </section>
+                        <ul class="o__list--bare u__align-center">
+                            <li><a href="http://www.sipple.io/webgl-demoscene" target="_blank">WebGL + THREE.JS Demoscene</a>
+                            </li>
+                            <li><a href="http://www.sipple.io/animation-sandbox/" target="_blank">Animation Sandbox</a></li>
+                            <li><a href="https://github.com/BrianSipple/JavaScript-Algorithms-with-ES6-and-JSPM"
+                                   target="_blank">JavaScript Algorithms with ES6</a></li>
+                            <li><a href="https://shot-slots.firebaseapp.com" target="_blank">Toy Espresso Slot Machine</a></li>
+                            <li><a href="https://github.com/BrianSipple/twitch-streamer" target="_blank">Promise-Based Twitch
+                                API Streamer in Vanilla JS</a></li>
+                            <li><a href="https://github.com/BrianSipple/Node-Markdown-Editor" target="_blank">Realtime Node.js
+                                Markdown Editor</a></li>
+                            <li><a href="http://codepen.io/BrianSipple" target="_blank">Codepen</a></li>
+                            <li><a href="https://github.com/BrianSipple" target="_blank">GitHub</a></li>
+                        </ul>
+
+                    </main>
+
+                </section>
+
+                <footer class="o__container u__mt3 u__p2">
+                    <p class="o__row o__row--around">
+                        <span>Copyright &copy; 2015</span>
+                        <span>Issues? Submit them to
+                            <a href="https://github.com/BrianSipple/brian/issues" target="_blank">GitHub</a>
+                        </span>
+                    </p>
+                </footer>
+
+            </section>
+
+        </div>
+
+    </div>
 
 
 
-</div>
 
 
 <!-- build:js vendor/vendor.js -->

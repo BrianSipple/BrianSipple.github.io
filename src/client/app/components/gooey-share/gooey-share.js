@@ -23,7 +23,7 @@
             {href: 'https://github.com/BrianSipple', iconClass: 'icon-social-github'}
         ],
 
-        ANIMATION_DURATION_MULTIPLIER = 1.1;
+        ANIMATION_DURATION_MULTIPLIER = 0.7;
 
 
     function toggleOptions() {
@@ -237,6 +237,7 @@
             optionButtonElem.classList.add('button-share__link');
             optionButtonLink.setAttribute('href', shareLinkData[i].href);
             optionButtonLink.setAttribute('target', '_new');
+            optionButtonLink.classList.add('o__link--no-under');
             optionButtonIcon.classList.add('ic');
             optionButtonIcon.classList.add('ic_share-link');
             optionButtonIcon.classList.add(shareLinkData[i].iconClass);

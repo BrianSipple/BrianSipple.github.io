@@ -146,7 +146,7 @@ module.exports = function () {
         // Extra config and dotfiles in the root (e.g, robots.txt)
         // that we just want to move around
         rootExtras: [
-            resolveToSrcApp('*.*'),
+            resolveToSrcApp('.*'),
             '!' + resolveToSrcApp('*.html')
         ],
 
