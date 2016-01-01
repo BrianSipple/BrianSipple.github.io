@@ -49,7 +49,7 @@ var gulp = require('gulp'),
 
     onChangeEvent = function onChangeEvent (ev) {
         var srcPattern = new RegExp('/.*(?=/' + paths.srcDirPath + ')/');
-        log('File ' + ev.path.replace(srcPattern, '') + ' ' + event.type);
+        log('File ' + ev.path.replace(srcPattern, '') + ' ' + ev.type);
     },
 
     startBrowserSync = function startBrowserSync (isDev, isSpecRunner, isUsingNodemon) {
@@ -220,11 +220,11 @@ gulp.task('styles', ['clean-styles'], function () {
         //.pipe(gulp.dest(paths.distDirPath))
         .pipe(reload({stream: true}));
 
-//        // move over any remaining CSS files (e.g normailize.css)
-//        .pipe(gulp.src(paths.extraCSS, { base: paths.srcClientDirPath }))
-//        .pipe(gulp.dest(paths.tmpDirPath))
-//        //.pipe(gulp.dest(paths.distDirPath))
-//        .pipe(reload({stream: true}));
+       // move over any remaining CSS files (e.g normailize.css)
+    //    .pipe(gulp.src(paths.extraCSS, { base: paths.srcClientDirPath }))
+    //    .pipe(gulp.dest(paths.tmpDirPath))
+    //    //.pipe(gulp.dest(paths.distDirPath))
+    //    .pipe(reload({stream: true}));
 });
 
 
@@ -308,7 +308,7 @@ gulp.task('extras', function () {
                 paths.rootExtras,
                 paths.extraCSS
             ),
-            {base: paths.srcClientDirPath, dot: true })
+            {base: paths.rootPath, dot: true })
         .pipe(gulp.dest(paths.distDirPath));
 });
 

@@ -12,7 +12,7 @@ module.exports = function () {
         reportDirName = 'report',
         specRunnerFileName = 'specs.html',
 
-        root = './',
+        rootDirPath = path.resolve(__dirname),
         srcClientDirPath = path.join(__dirname, clientDirName),
         srcServerDirPath = path.join(__dirname, serverDirName),
         wiredep = require('wiredep'),
@@ -89,7 +89,7 @@ module.exports = function () {
         distImages: path.join(__dirname, distDirName, 'assets/images'),
         distFonts: path.join(__dirname, distDirName, 'assets/fonts'),
 
-        rootPath: root,
+        rootPath: rootDirPath,
 
         srcServerDirPath: srcServerDirPath,
         nodeServerFilePath: resolveToSrcServer('server.js'),
@@ -103,8 +103,8 @@ module.exports = function () {
 
         // Packages to source when bumping package versions
         packages: [
-            root + 'package.json',
-            root + 'bower.json'
+            path.join(rootDirPath, 'package.json'),
+            path.join(rootDirPath, 'bower.json')
         ],
 
         // all of the JS that we want to vet
@@ -140,9 +140,7 @@ module.exports = function () {
         // Any CSS files that we might just want to move
         //around without processing (e.g. normalize.css)
         extraCSS: [
-            resolveToSrcApp('*.css'),
-            resolveToSrcAssets('styles/**/*.css'),
-            resolveToSrcComponents('/**/*.css')
+            path.join(__dirname, 'vendor/savvy/dist/savvy.min.css')
         ],
 
         // Extra config and dotfiles in the root (e.g, robots.txt)
@@ -158,7 +156,8 @@ module.exports = function () {
         /* Inject CSS after it has been compiled to .tmp */
         injectedCustomCSS: [
             //resolveToTmpAssets('styles/normalize.css'),
-            resolveToTmpApp('main.css')
+            resolveToTmpApp('main.css'),
+            resolveToTmpApp('savvy.min.css')
         ],
 
         injectedCustomJS: [
@@ -294,7 +293,9 @@ module.exports = function () {
             options.server = {
                 baseDir: [config.paths.tmpDirPath, config.paths.srcClientDirPath],
                 routes: {
-                    '/vendor': 'vendor'
+                    '/vendor': 'vendor',
+                    '/src': 'src',
+                    '/.tmp': '.tmp'
                 }
             };
         }
