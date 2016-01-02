@@ -131,7 +131,7 @@
                 DOM_REFS.introHeaderCommaElem,
                 {
                     transformOrigin: '50%, 50%',
-                    rotationZ: -75,   // slightly more than 45deg diagonal
+                    rotationZ: -90,   // twist in
                     immediateRender: false
                 }
             );
