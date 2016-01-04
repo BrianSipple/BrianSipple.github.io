@@ -11,3 +11,9 @@
 .js-after-intro {
     opacity: 0;
 }
+
+.button-set-container {
+    button {
+        transition: inherit;
+    }
+}
